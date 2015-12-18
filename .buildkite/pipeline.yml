@@ -1,3 +1,12 @@
+env:
+  DOCKER_TAG: myapp
 steps:
-  - name: Example Test
-    command: echo "Hello!"
+  - name: ":docker: Build"
+    command: .buildkite/docker_build
+    agents:
+      docker: true
+  - wait
+  - name: ":hammer: Test"
+    command: .buildkite/test
+    agents:
+      docker: true
